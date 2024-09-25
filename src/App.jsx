@@ -21,23 +21,11 @@ function App() {
 
   const handleFlip = card.map((item) => {return [item[1], item[0]]})
 
-  const uniqueCard = []
-  for(let i = 0; i < card.length; i++) {
-    for(let j = 0; j < card.length; j++) {
-
-    }
-  }
-
-  const sortedCard = card.map((item) => item.toSorted((a,b) => a - b, 0))
   const jsonCard = card.map((item) => JSON.stringify(item))
-  const jsonCardSet = [...new Set(jsonCard)]
-  console.log(jsonCardSet, 'jsonCardSet');
-  const arrayCardSet = jsonCardSet.map((item) => JSON.parse(item))
-  console.log([arrayCardSet], 'arrayCardSet');
-  
-  
-  // console.log(card[3][0] === card[5][0]);
-  
+  const jsonCardRemoved = jsonCard.filter((item) => !item.includes("[4,3]") && !item.includes("[3,4]"))
+  const arrayCardRemoved = jsonCardRemoved.map((item) => JSON.parse(item)) 
+
+  console.log(arrayCardRemoved);
   
   const handleRemoveSum = card.filter((item) => item.reduce((acc, curr) => acc + curr, 0) !== parseInt(inputValue))
 
@@ -61,7 +49,7 @@ function App() {
             <h1 className='font-semibold text-white text-lg'>Double Number</h1>
             <h2 className='text-yellow-500 font-semibold'>{doubleNumber}</h2>
           </div>
-        <div className='flex flex-wrap gap-2'>
+        <div className='flex flex-wrap gap-4'>
           {
             card.map((item, index) => {
 
@@ -78,7 +66,7 @@ function App() {
           <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24' onClick={() => setCard(handleAscending)}>Sort {`(ASC)`}</button>
           <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24' onClick={() => setCard(handleDescending)}>Sort {`(DESC)`}</button>
           <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24' onClick={() => setCard(handleFlip)}>Flip</button>
-          <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24'onClick={() => setCard(arrayCardSet)}>Remove Dup</button>
+          <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24'onClick={() => setCard(arrayCardRemoved)}>Remove Dup</button>
           <button className='bg-yellow-500 text-sm my-2 font-sans font-medium text-white shadow-lg rounded-lg p-1 hover:scale-110 min-w-24' onClick={() => setCard(source)}>Reset</button>
         </div>
         <div className='flex flex-col mt-4 gap-1'>
